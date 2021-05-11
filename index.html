@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="02.126 Southeast Asia Under Japan Student Resource Website">
+  <meta name="author" content="Ragul Balaji">
+  <meta name="author" content="Xing Yi">
+  <link rel="shortcut icon" type="image/png" href="assets/favicon/android-chrome-512x512.png">
+  <title>02.126 Southeast Asia Under Japan: Student Resources</title>
+  <link async rel="stylesheet" href="assets/bulma.min.css">
+  <link async rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link async rel="stylesheet" href="style.css">
+</head>
+
+<body class="site">
+
+  <header class="navbar is-light is-fixed-top">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item has-text-weight-bold" href=".">02.126 Southeast Asia Under Japan</a>
+        <a role="button" id="bryx-burger" class="navbar-burger" data-target="navMenu" aria-label="menu"
+          aria-expanded="false" onclick="burgerToggle()">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="bryx-burger-menu" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item is-tab" id="tab_search"
+            onclick="scrollToElementOnPage('page_main', 'bryx-scrollpoint-search', 'search')">
+            <span class="icon"><i class="fa fa-search"></i></span>
+          </a>
+          <a class="navbar-item is-tab" id="tab_bibliographies"
+            onclick="goToPage('page_bibliographies',true)">Bibliographies</a>
+          <a class="navbar-item is-tab" id="tab_primary_sources" onclick="goToPage('page_primary_sources',true)">Primary
+            Sources</a>
+          <a class="navbar-item is-tab" id="tab_student_publications"
+            onclick="goToPage('page_student_publications',true)">Student Publications</a>
+          <a class="navbar-item is-tab" id="tab_guest_lectures"
+            onclick="scrollToElementOnPage('page_main','bryx-scrollpoint-speakers', 'guest_lectures')">
+            Guest Lectures</a>
+          <a class="navbar-item is-tab" id="tab_local_archives"
+            onclick="scrollToElementOnPage('page_main','bryx-scrollpoint-localarch', 'local_archives')">
+            Local Archives</a>
+          <a class="navbar-item is-tab" id="tab_course_syllabus"
+            onclick="scrollToElementOnPage('page_main','bryx-scrollpoint-syllabus', 'course_syllabus')">
+            Course Syllabus</a>
+          <a class="navbar-item is-tab" id="tab_contact" onclick="modalToggle('bryx-modal-contactus',1)">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-content">
+    <div class="bryx-page" id="page_bibliographies">
+      <div class="container" id="bryx-scrollpoint-bibliographies">
+        <br />
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <h1 class="title is-size-1" id="bryx-bib-title">Search Bibliographies</h1>
+            </div>
+          </div>
+          <div class="level-right">
+            <p class="level-item">
+              <button class="button is-danger is-outlined is-fullwidth" id="bryx-bib-toggle" onclick="allBibToggle()">
+                Show All Bibliographies
+              </button>
+            </p>
+          </div>
+        </nav>
+        <br />
+      </div>
+      <div class="container">
+        <div class="columns">
+          <div class="column is-3">
+            <article class="tadaAnim panel is-link bryx-page bryx-page-active" id="bryx-search-panel"
+              style="box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);">
+              <p class="panel-heading">Filters</p>
+              <div class="panel-block">
+                <p class="control has-icons-left">
+                  <input class="input" type="text" placeholder="Search by Keywords" id="bryx-input-keywords"
+                    onchange="searchKeyword(this.value)" onkeyup="searchSuggestions(this.value)">
+                  <span class="icon is-left">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </span>
+                </p>
+              </div>
+              <div class="panel-block">
+                <table class="table is-hoverable is-fullwidth is-striped">
+                  <thead>
+                    <tr>
+                      <th>Search Suggestions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bryx-search-suggestions">
+                    <tr>
+                      <td>Begin typing to search</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="panel-block">
+                <form action="" onchange="searchKeyword(lastSearchQuery)">
+                  <div class="field">
+                    <label for="" class="label">
+                      Type
+                    </label>
+                  </div>
+                  <div class="field">
+                    <label class="checkbox">
+                      <input type="checkbox" id="check_book" checked>Book
+                    </label>
+                  </div>
+                  <div class="field">
+                    <label class="checkbox">
+                      <input type="checkbox" id="check_journal" checked>Journal
+                    </label>
+                  </div>
+                  <div class="field">
+                    <label class="checkbox">
+                      <input type="checkbox" id="check_website" checked>Website
+                    </label>
+                  </div>
+                  <div class="field">
+                    <label class="checkbox">
+                      <input type="checkbox" id="check_others" checked>Others
+                    </label>
+                  </div>
+                </form>
+              </div>
+            </article>
+            <br />
+          </div>
+          <div class="column" style="margin-left: 3rem;">
+            <div class="container bryx-page bryx-page-active" id="bryx-panel-search-results">
+              <p class="is-size-4">Showing <b id="bryx-search-results-count">0</b> results for: <b
+                  id="bryx-search-results-query">___</b></p>
+              <br />
+              <ol id="bryx-search-results-list"></ol>
+            </div>
+          </div>
+        </div>
+        <div class="container bryx-page" id="bryx-panel-all-bib">
+          <nav class="level is-mobile">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Bib Count</p>
+                <p class="title" id="bryx-all-bib-counter">0</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Bib Types</p>
+                <p class="title">52</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Bib Keywords</p>
+                <p class="title">3899</p>
+              </div>
+            </div>
+          </nav>
+          <progress class="progress is-large is-success" value="0" max="100" id="bryx-all-bib-progress"></progress>
+          <table class="table is-fullwidth is-striped is-size-6">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>&star;</th>
+                <th>Type</th>
+                <th>Article</th>
+                <th>Author(s)</th>
+                <th>Countries Involved</th>
+              </tr>
+            </thead>
+            <tbody id="bryx-all-bib-list">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="bryx-page" id="page_primary_sources">
+      <div class="container" id="bryx-scrollpoint-primary-sources">
+        <br />
+        <h1 class="title is-size-1">Primary Sources</h1>
+        <p class="is-size-5">This section contains interviews conducted by SUTD students with eye-witnesses and
+          survivors of World War 2 in Asia. </p>
+        <br>
+        <br>
+      </div>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="./assets/primary_sources/chenyou.jpg">
+                </figure>
+              </div>
+              <div class="card-content">
+                <p class="title">
+                  Personal Experiences of Singaporeans During the Japanese Occupation
+                </p>
+                <br />
+                <p class="subtitle">
+                  Interviewees: Mr Liang, Huang Yin Di, Lim Boon Seng and many more...
+                </p>
+                <p class="subtitle">
+                  Interviewer(s): Liang ChenYou, Fong Yuyang, Wesley Ler
+                </p>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                    <a target="_blank" href="./assets/primary_sources/LiangChenYou.pdf">View PDF</a>
+                  </span>
+                </p>
+              </footer>
+            </div>
+
+            <br>
+            <br>
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="./assets/primary_sources/daphne_karthic.jpg">
+                </figure>
+              </div>
+              <div class="card-content">
+                <p class="title">
+                  Divergent Experiences of Singaporeans during the Japanese Occupation
+                </p>
+                <br />
+                <p class="subtitle">
+                  Interviewees: Mr Loh, Mdm Yap, Mr Wen and many more...
+                </p>
+                <p class="subtitle">
+                  Interviewer(s): Daphne Goh, Karthic Harish
+                </p>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                    <a target="_blank" href="./assets/primary_sources/SEA Final Essay_Daphne_Harish (1).pdf">View
+                      PDF</a>
+                  </span>
+                </p>
+              </footer>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="./assets/primary_sources/yuuka.jpg">
+                </figure>
+              </div>
+              <div class="card-content">
+                <p class="title">
+                  Japanese Civilians under Japanese Military Rule: My Grandfather's Experiences and Reflections
+                </p>
+                <br />
+                <p class="subtitle">
+                  Interviewees: Grandfather Sunao Toita
+                </p>
+                <p class="subtitle">
+                  Interviewer(s): Yuuka Kuroishi
+                </p>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                    <a target="_blank" href="./assets/primary_sources/YuukaKuroishi.pdf">View PDF</a>
+                  </span>
+                </p>
+              </footer>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image">
+                  <img src="./assets/primary_sources/glen.jpg">
+                </figure>
+              </div>
+              <div class="card-content">
+                <p class="title">
+                  Perspectives on the Occupation
+                </p>
+                <br />
+                <p class="subtitle">
+                  Interviewees: Mr Loo Kee Wei, Mr Kieran Pillai
+                </p>
+                <p class="subtitle">
+                  Interviewer(s): Glenn Chia Jin Wee
+                </p>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                    <a target="_blank" href="./assets/primary_sources/GlennChia.pdf">View PDF</a>
+                  </span>
+                </p>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+    </div>
+
+    <div class="bryx-page" id="page_student_publications">
+      <div class="container" id="bryx-scrollpoint-student-publications">
+        <br />
+        <h1 class="title is-size-1">Student Publications</h1>
+        <br />
+        <table class="table is-fullwidth is-striped is-size-6 has-text-centered">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Journal</th>
+              <th>Publication</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Huang Qiuhong</td>
+              <td>Emory Journal of Asian Studies</td>
+              <td>The Japanese Occupation of Singapore: Examining the Success of the Endau Settlement</td>
+              <td><a target="_blank"
+                  href="https://hass.sutd.edu.sg/education/student-highlights/student-huang-qiuhongs-article-on-endau-settlement-published-in-emory-journal-of-asian-studies">link</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">Check back soon for more!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bryx-page bryx-page-active" id="page_main">
+      <section class="hero is-primary is-fullheight-with-navbar bryx-main-jumbo">
+        <div class="hero-head">
+        </div>
+
+        <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <p class="title is-size-2 bryx-text-shadow">
+              02.126 Southeast Asia Under Japan <br /> Student Generated Resources
+            </p>
+            <div class="container has-text-centered">
+              <div class="columns">
+                <div class="column is-3"></div>
+                <div class="column is-6">
+                  <p class="subtitle is-size-5 bryx-text-shadow">
+                    This is an ongoing student generated resource for <a target="_blank" class="has-text-link"
+                      href="https://www.todayonline.com/commentary/history-beneath-our-feet-imagining-japanese-occupation-classroom">course</a>
+                    #02.126 Southeast Asia Under Japan: Motives, Memoirs and Media taught at the Humanities, Arts and
+                    Social Sciences Dept. at SUTD
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="subtitle is-size-6 bryx-text-shadow bryx-jumbo-caption">*Students in the 'surrender room' of the
+            Former Ford Motor Factory</p>
+        </div>
+
+        <div class="container">
+          <div class="buttons are-medium">
+            <button class="tadaAnim button has-background-light"
+              onclick="scrollToElementOnPage('page_main', 'bryx-scrollpoint-search', 'search')">
+              Search Resources
+            </button>
+            <button class="button has-background-light"
+              onclick="scrollToElementOnPage('page_main','bryx-scrollpoint-syllabus', 'course_syllabus')">
+              View Syllabus
+            </button>
+          </div>
+        </div>
+
+        <div class="container" id="arrow-hint">
+          <span class="arrow pulse">
+          </span>
+          <span class="arrow pulse">
+          </span>
+        </div>
+      </section>
+
+      <!--SEARCH KEYWORDS HERO-->
+      <section class="hero is-fullheight" id="bryx-scrollpoint-search">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-1"></div>
+              <div class="column">
+                <br />
+                <h1 class="title is-1">Search by keywords for relevant resources</h1>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-1"></div>
+              <div class="column is-6">
+                <br />
+                <p class="is-size-5">This database consists of a collection of student bibliographies and primary source
+                  interviews, carefully curated to offer interesting online resources regarding Southeast Asia during
+                  the Japanese Occupation.</p>
+                <br />
+                <br />
+                <br />
+                <div class="tadaAnim field">
+                  <div class="control is-expanded has-icons-left">
+                    <input class="input is-rounded is-medium search-halo" type="text" placeholder="Search by Keywords"
+                      onchange="redirectToSearch(this.value)">
+                    <span class="icon is-left">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-1"></div>
+              <div class="column">
+                <figure class="is-square image">
+                  <img src="./assets/undraw/undraw_Scrum_board_re_wk7v.svg" alt="Student">
+                </figure>
+              </div>
+              <div class="column is-1"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero is-halfheight bryx-image-slice" id="bryx-carousel"></section>
+
+      <!--GUEST LECTURES HERO-->
+      <section class="hero is-fullheight is-light" id="bryx-scrollpoint-speakers">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns">
+              <div class="column">
+                <br />
+                <h1 class="title is-1 has-text-right">Special Lectures via Zoom</h1>
+              </div>
+              <div class="column is-1"></div>
+            </div>
+            <div class="columns">
+              <div class="column is-1"></div>
+              <div class="column">
+                <figure class="is-square image">
+                  <img src="./assets/undraw/undraw_Online_information_re_erks.svg" alt="Guest">
+                </figure>
+              </div>
+              <div class="column is-1"></div>
+              <div class="column is-6">
+                <br />
+                <p class="is-size-5 has-text-right">Watch pre-recorded, insightful talks by guest speakers!</p>
+                <br />
+                <br />
+                <div class="columns">
+                  <div class="column bryx-speaker-box">
+                    <figure class="image is-square speaker">
+                      <img class="is-rounded" src="./assets/imgs/chris_hale.jpg">
+                    </figure>
+                    <br />
+                    <p class="has-text-centered"><b>Christopher Hale</b></p>
+                    <p class="has-text-centered is-size-7">Executive Producer, <br /> Non-fiction Author, <br />
+                      Producer/
+                      Director.
+                    </p>
+                  </div>
+                  <div class="column bryx-speaker-box">
+                    <figure class="image is-square speaker">
+                      <img class="is-rounded" src="./assets/imgs/clem_tillion.jpg">
+                    </figure>
+                    <br />
+                    <p class="has-text-centered"><b>Clem Tillion</b></p>
+                    <p class="has-text-centered is-size-7">World War II Veteran, <br /> Nine-term Alaska State
+                      Legislator
+                    </p>
+                  </div>
+                  <div class="column bryx-speaker-box">
+                    <figure class="image is-square speaker">
+                      <img class="is-rounded" src="./assets/imgs/cao_yin.jpg">
+                    </figure>
+                    <br />
+                    <p class="has-text-centered"><b>Dr. Cao Yin</b></p>
+                    <p class="has-text-centered is-size-7">Associate Professor at Tsinghua University. Research
+                      interests:
+                      Modern India and
+                      India-China relations in the 20th century.</p>
+                  </div>
+                </div>
+                <br />
+                <p class="tadaAnim is-size-5 has-text-right">View recorded guest lectures
+                  <a class="has-text-info" onclick="modalToggle('bryx-modal-guestlectures',1)">here</a>.
+                </p>
+              </div>
+              <div class="column is-1"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--LOCAL ARCHIVES HERO-->
+      <section class="hero is-fullheight" id="bryx-scrollpoint-localarch">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns">
+              <div class="column is-1"></div>
+              <div class="column">
+                <br />
+                <h1 class="title is-1">Browse through our local archives</h1>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column is-1"></div>
+              <div class="column is-6">
+                <br />
+                <p class="is-size-5">Read interesting interviews, newspapers and many more from the National Archives of
+                  Singapore and the National Library Board.</p>
+                <br />
+                <br />
+                <br />
+                <div class="tadaAnim buttons">
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://www.nas.gov.sg/archivesonline/oral_history_interviews/">NAS
+                      Interviews</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://www.nas.gov.sg/archivesonline/publications">NAS Publications</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://eresources.nlb.gov.sg/newspapers/">NLB Newspapers</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://eresources.nlb.gov.sg/infopedia/">NLB Infopedia</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://www.roots.gov.sg">RootsSG</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://www.singaporewarcrimestrials.com">Singapore War Crimes Trials</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank"
+                      href="https://www.nhb.gov.sg/~/media/nhb/files/places/trails/world%20war%20ii/wwii-text.pdf?la=en">National
+                      Heritage Board</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://eresources.nlb.gov.sg/history">HistorySG</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a href="https://eresources.nlb.gov.sg/printheritage/">BookSG</a>
+                  </button>
+                  <button class="button has-background-light">
+                    <a target="_blank" href="https://www.singaporememory.sg">Singapore Memory Project</a>
+                  </button>
+                </div>
+              </div>
+              <div class="column is-1"></div>
+              <div class="column">
+                <figure class="is-square image">
+                  <img src="./assets/undraw/undraw_newspaper_k72w.svg" alt="Reading">
+                </figure>
+              </div>
+              <div class="column is-1"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADD A DIVIDER HEREEEE-->
+
+      <!--COURSE SYLLABUS-->
+      <section class="section" id="bryx-scrollpoint-syllabus">
+        <div class="container">
+          <br />
+          <h1 class="title is-1">Course Syllabus</h1>
+          <p class="is-size-5">
+            Even after eight decades, Singapore abounds with personal and institutional memories of the Japanese
+            Occupation. The brief occupation of Southeast Asia (1941-45) during WWII was a complex phenomenon involving
+            the complicity of many Asian nationalist leaders. While it did contribute to the unravelling of European
+            colonial rule, it was at a tragic human cost, the ethics and gore of which are still debated both in
+            academia and in popular media. Through scholarly texts, memoirs, fiction film (The Burmese Harp, Bridge on
+            the River Kwai) and archival newsreels, this course will explore those tumultuous years in Burma, Indochina,
+            Malaya, Indonesia, and the Philippines. We will read and discuss books and diaries, watch films, debate
+            historical perspectives, take a field trip to the exhibition at the Former Ford Motor factory, and reflect
+            on the lingering aspects of the Occupation.
+          </p>
+        </div>
+
+        <div class="container">
+          <br />
+          <div class="table-container">
+            <table class="table is-hoverable is-striped">
+              <thead>
+                <th style="width: 5%;">Week</th>
+                <th style="width: 55%;">Content Covered</th>
+                <th style="width: 40%;">Readings/Viewings (Subject to Modification)</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>1</th>
+                  <td><b>Introduction.</b> <br /> Syllabus, requirements and expectations from the course.</td>
+                  <td>(Viewing) <br />
+                    Japan's <i>War in Colour</i> (2004).</td>
+                </tr>
+                <tr>
+                  <th>2</th>
+                  <td><b>Setting the stage: Before 1941.</b> <br /> How were western and Asian populations responding to
+                    the Japanese presence in their socio-political spheres in Asia in the early twentieth century?
+                    <br /> What was the situation in Japan?
+                    <br /> What were the conditions in Europe and in Asia before 1941?
+                    <br /> Was a Japanese invasion expected?
+                  </td>
+                  <td>(Readings) <br />
+                    Eri Hotta, <i>Japan 1941</i> (excerpts) <br />
+                    Louise Young, <i>Japan's Total Empire: Manchuria and the Culture of Wartime Imperialism</i>, Chapter
+                    1,
+                    "Manchukuo and Japan."</td>
+                </tr>
+                <tr>
+                  <th>3</th>
+                  <td><b>Setting the stage: Before 1941 (con’t).</b> <br />
+                    How did ‘Pan-Asianism’ originate? <br />
+                    How did the government and various civilian populations react to an impending Japanese presence?
+                    <br />
+                    Why was the Burma Road such a strategic location?
+                  </td>
+                  <td>(Readings) <br />
+                    Harper and Bayly, <i>Forgotten Armies</i>, (excerpts) <br />
+                    Eri Hotta, <i>Pan Asianism and Japan’s War</i>, (excerpts)
+                  </td>
+                </tr>
+                <tr>
+                  <th>4</th>
+                  <td><b>Bicycles and Tapioca: The Japanese in Malaya.</b> <br />
+                    How did the Japanese army take over an entire peninsula by surprise? <br />
+                    How did the local populations and the Allied forces react to the sudden incursion? <br />
+                    What role did the Malayan communists play in supporting Britain’s war against the Japanese?
+                  </td>
+                  <td>(Readings) <br />
+                    Harper and Bayly, (excerpts) <br /><br />
+                    (Viewing) <br />
+                    <i>Sergeant Hassan</i> (1958).
+                  </td>
+                </tr>
+                <tr>
+                  <th>5</th>
+                  <td><b>The Fall of Malaya.</b> <br />
+                    The loss of Singapore has been described as the largest and most humiliating defeats ever faced
+                    by the British Empire. <br />
+                    Was it simply because the great British guns were pointed the wrong way? <br />
+                    What were the conditions that led to the defeat?
+                  </td>
+                  <td>(Viewings in class) <br />
+                    <i>Rising Sun over Malaya</i>
+                  </td>
+                </tr>
+                <tr>
+                  <th>6</th>
+                  <td><b>‘I cannot get over Singapore’.</b> </td>
+                  <td>(Readings) <br />
+                    Brian Farrell, <i>The Defence and Fall of Singapore</i>, ‘The Worst Disaster?’ (excerpts) <br />
+                    Christopher Hale, <i>Massacre in Malaya</i>, (excerpts) <br />
+                    <br />
+                    <b>*Field trip to the Former Ford Motor Factory and the Kranji War Memorial</b>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>7</th>
+                  <td><b>Recess Week.</b></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th>8</th>
+                  <td><b>Burma – A Railroad of Death.</b> <br />
+                    Why did Burma face a pivotal and long drawn out war? <br />
+                    Why have so many movies and novels been produced on the mistreatment of Allied POW’s during the
+                    railroad construction? <br />
+                    What were the roles of the local rulers and Japanese leaders in these events? <br />
+                    How many Asian lives were expended?</td>
+                  <td>(Readings) <br />
+                    Harper and Bayly, (excerpts) <br />
+                    Richard Flanagan, <i>Journey to the Deep Norths</i>, (excerpts) <br /><br />
+                    (Viewing) <br />
+                    <i>The Bridge on the River Kwai</i> (1957) or <a target="_blank"
+                      href="https://archive.org/details/video.-guru-20200501-133605333"><i>The Burmese Harp</i>
+                      (1956)</a>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>9</th>
+                  <td><b>The Dutch East Indies.</b> <br />
+                    Was Sukarno, the charismatic Indonesian leader misguided in collaborating with the Japanese
+                    after their take-over from Dutch rule? <br />
+                    How did the Japanese try to persuade the Indonesian population to collaborate with them? <br />
+                    What were the implications of the occupation as World War II grew and the Japanese ran out of
+                    resources?</td>
+                  <td>(Readings) <br />
+                    <i>Local opposition and underground resistance to the Japanese in Java 1942-45</i>, Edited by Anton
+                    Lucas. (excerpts) <br /><br />
+                    (Viewings) <br />
+                    Japanese propaganda newsreels. Source: <i>Beeld en Geluid archives</i>
+                  </td>
+                </tr>
+                <tr>
+                  <th>10</th>
+                  <td><b>The Dutch East Indies (con’t).</b> </td>
+                  <td>(Readings) <br />
+                    <i>The Defining Years of the Dutch East Indies, 1942-1949: Survivors’ Accounts</i>, Edited by Jan A.
+                    Krancher (excerpts) <br />
+                    William Bradley Horton, “Tales of a Wartime Vagabond: Hayashi Fumiko and the Travels of Japanese
+                    Writers in Early Wartime Southeast Asia” <br />
+                    <i>Under Fire: Women and World War Two (2014)</i>
+                    <br /><br />
+                    (Viewing) <br />
+                    Fires on the Plain (1959).
+                  </td>
+                </tr>
+                <tr>
+                  <th>11</th>
+                  <td><b>The Philippines.</b> <br />
+                    The highly anticipated rebuttal to Pearl Harbor and the American efforts at containing Japan in
+                    the eastern limits of Southeast Asia started the full combat in the region with heavy
+                    casualties. <br />
+                    Why were the Philippines so important to both the Allied and the Japanese forces? <br />
+                    How did it mark American involvement in Southeast Asia?</td>
+                  <td>(Readings) <br />
+                    <i>The Battle for Manila</i>, (excerpts).
+                  </td>
+                </tr>
+                <tr>
+                  <th>12</th>
+                  <td><b>The INA and Subhas Chandra Bose.</b> <br />
+                    How did India’s Subhas Chandra Bose cobble together an extraordinary alliance of Indian POW’s,
+                    laborers, citizens and expatriates in creating an overseas army to overthrow British
+                    imperialism? <br />
+                    Were his collaborations with Japan justified? <br />
+                    What was the effect of such a nationalist effort among the Indian diaspora in Southeast Asia?
+                  </td>
+                  <td>(Readings) <br />
+                    Joyce Lebra, <i>The Indian National Army and Japan</i>, 1971, (excerpts). <br />
+                    Arunima Datta, <i>Fleeting Agencies: A Social History of India Coolie Women in British Malaya</i>
+                    (excerpts)
+                    <br /><br />
+                    (Viewings) <br />
+                    <i>The Forgotten Army: Singapore – The Beginning </i> <br />
+                    Assorted newsreels. <br /><br />
+                    <b>Note: Please upload final paper outline (approx. 1 page)</b>
+                  </td>
+                </tr>
+                <tr>
+                  <th>13</th>
+                  <td><b>Comfort Women.</b> <br />
+                    Among the most disturbing legacies of the Japanese Imperial Army is the installation of an
+                    efficient, militarized ‘comfort women’ system. <br />
+                    How was this set in place? <br />
+                    What are some of their personal narratives? <br />
+                    Was this unique to Japanese rule? <br />
+                    Has there been appropriate atonement and apology?</td>
+                  <td>(Readings) <br />
+                    Hirofumi Hayashi, “Japanese Comfort Women in Southeast Asia” Japan Forum, Vol.10, No.2, 1998.
+                    <br />
+                    “Disputes in Japan over the Japanese Military "Comfort Women" System and Its Perception in
+                    History” <i>The Annals of the American Academy of Political and Social Science</i> Vol. 617, The
+                    Politics of History in Comparative Perspective (May, 2008), pp. 123-132. <br /><br />
+                    (Viewings) <br />
+                    <i>Because We Were Beautiful</i> (2010) <br />
+                    <i>Comfort Women Wanted</i>.
+                  </td>
+                </tr>
+                <tr>
+                  <th>14</th>
+                  <td><b>Final Paper.</b></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <div class="modal" id="bryx-modal-guestlectures">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Recorded Guest Lectures</p>
+        <button class="tadaAnim delete" aria-label="close"
+          onclick="modalToggle('bryx-modal-guestlectures',-1)"></button>
+      </header>
+      <section class="modal-card-body">
+        <table class="table is-fullwidth is-striped is-size-4">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Speaker</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12 Oct 2020</td>
+              <td>Filmmaker Chris Hale</td>
+              <td><a target="_blank"
+                  href="https://drive.google.com/file/d/1UCg3J4KPZpo4_ELC4VCKYfxd9_SwfVQd/view">link</a>
+              </td>
+            </tr>
+            <tr>
+              <td>04 Dec 2020</td>
+              <td>Senator Clem Tillion</td>
+              <td><a target="_blank"
+                  href="https://drive.google.com/file/d/1-GI12E940YI079uTgLW0Z5qhsGCtPoUU/view">link</a>
+              </td>
+            </tr>
+            <tr>
+              <td>06 Nov 2020</td>
+              <td>Dr Cao Yin</td>
+              <td><a target="_blank"
+                  href="https://drive.google.com/file/d/1UsrgXjejsjyZ6cqaMKnyOboFCiPimmfE/view">link</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <footer class="modal-card-foot">
+        *these videos are copyright of their respective authors.
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal" id="bryx-modal-contactus">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Contact</p>
+        <button class="tadaAnim delete" aria-label="close" onclick="modalToggle('bryx-modal-contactus',-1)"></button>
+      </header>
+      <section class="modal-card-body">
+        The course <a target="_blank"
+          href="https://hass.sutd.edu.sg/education/undergraduate-subjects/elective/02-126-southeast-asia-japan-motives-memoirs-media">02.126
+          Southeast Asian Under Japan: Motives, Memoirs
+          and Media</a> is taught by <a target="_blank" href="https://hass.sutd.edu.sg/faculty/sandeep-ray/">Sandeep
+          Ray</a>. For questions about using this resource site please email <a
+          href="mailto:sandeep_ray@sutd.edu.sg">sandeep_ray@sutd.edu.sg</a>.
+      </section>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Made with <strong>&hearts;</strong> by <a target="_blank" href="https://github.com/ragulbalaji">Ragul Balaji</a>
+        and <a target="_blank" href="https://github.com/xingyiz">Xing Yi</a> in May 2021.<br />
+        Last updated: Fri May 7 11:43:42 +08 2021
+      </p>
+    </div>
+  </footer>
+  </div>
+
+</body>
+
+<script src="backoffice/biglut.js"></script>
+<script src="assets/fuzzyset.js"></script>
+<script defer src="main.js"></script>
+
+</html>
