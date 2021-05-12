@@ -29,6 +29,7 @@ function goToPage (pageid, scrollTop) {
   }
 
   myScroll(null)
+  burgerToggle();
 }
 
 function scrollToElementOnPage (pageid, elementid, tabid) {
